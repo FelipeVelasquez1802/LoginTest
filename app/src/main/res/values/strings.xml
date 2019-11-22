@@ -9,4 +9,6 @@
     <string name="repeat_password">Repeat password</string>
     <string name="send">Send</string>
     <string name="restart_password">Restart password</string>
+    <string name="email_error">Email invalid</string>
+    <string name="not_empty">Not empty</string>
 </resources>
