@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.felipevelasquez.logintest.R;
@@ -23,7 +24,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private EditText email;
     private EditText password;
-
+    private ProgressBar progressBar;
 
     private FirebaseAuth auth;
 
@@ -42,6 +43,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void initElements() {
         email = findViewById(R.id.etEmail);
         password = findViewById(R.id.etPassword);
+        progressBar = findViewById(R.id.progress);
 
         auth = FirebaseAuth.getInstance();
     }
@@ -92,6 +94,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void signIn(String email, String password) {
         Log.d("Message", "SignIn: " + email);
+        progressBar.setVisibility(View.VISIBLE);
         auth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, this);
     }
@@ -110,6 +113,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void updateActivity(FirebaseUser user, boolean flag) {
+        progressBar.setVisibility(View.GONE);
         if (user != null) {
             Intent intent = new Intent(this, HomeActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
