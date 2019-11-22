@@ -3,4 +3,10 @@
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="login">Login</string>
+    <string name="sign_out">Sign out</string>
+    <string name="welcome">Welcome</string>
+    <string name="register">Open new account</string>
+    <string name="repeat_password">Repeat password</string>
+    <string name="send">Send</string>
+    <string name="restart_password">Restart password</string>
 </resources>

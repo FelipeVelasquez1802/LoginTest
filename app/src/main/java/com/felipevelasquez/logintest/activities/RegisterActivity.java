@@ -16,73 +16,54 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener, OnCompleteListener {
+public class RegisterActivity extends AppCompatActivity implements View.OnClickListener, OnCompleteListener {
 
     private EditText email;
     private EditText password;
-
+    private EditText repeatPassword;
     private FirebaseAuth auth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        initObjects();
+        setContentView(R.layout.activity_register);
         initElements();
-    }
-
-    private void initObjects() {
     }
 
     private void initElements() {
         email = findViewById(R.id.etEmail);
         password = findViewById(R.id.etPassword);
+        repeatPassword = findViewById(R.id.etRepeatPassword);
 
         auth = FirebaseAuth.getInstance();
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        FirebaseUser currentUser = auth.getCurrentUser();
-        updateActivity(currentUser);
-    }
 
     @Override
     public void onClick(View v) {
-        Intent intent = null;
         switch (v.getId()) {
-            case R.id.btLogin:
+            case R.id.btSend:
                 String emailString = email.getText().toString();
                 String passwordString = password.getText().toString();
-                signIn(emailString, passwordString);
-                break;
-            case R.id.tvRegister:
-                intent = new Intent(this, RegisterActivity.class);
-                startActivity(intent);
-                break;
-            case R.id.tvRestartPassword:
-                intent = new Intent(this, RestartPasswordActivity.class);
-                startActivity(intent);
+                createAccount(emailString, passwordString);
                 break;
         }
     }
 
-    private void signIn(String email, String password) {
-        Log.d("Message", "SignIn: " + email);
-        auth.signInWithEmailAndPassword(email, password)
+    private void createAccount(String email, String password) {
+        auth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, this);
     }
 
     @Override
     public void onComplete(@NonNull Task task) {
         if (task.isSuccessful()) {
-            Log.d("Mensaje", "Login:Success");
+            Log.d("Mensaje", "Register:Success");
             FirebaseUser user = auth.getCurrentUser();
             updateActivity(user);
         } else {
-            Log.e("Mensaje", "Login:Failure");
-            Toast.makeText(this, "Login:Failure", Toast.LENGTH_SHORT).show();
+            Log.e("Mensaje", "Register:Failure");
+            Toast.makeText(this, "Register:Failure", Toast.LENGTH_SHORT).show();
             updateActivity(null);
         }
     }

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="15dp"
+    tools:context=".activities.RegisterActivity">
+
+    <EditText
+        android:id="@+id/etEmail"
+        style="@style/EditTextTheme"
+        android:hint="@string/email" />
+
+    <EditText
+        android:id="@+id/etPassword"
+        style="@style/EditTextTheme"
+        android:layout_below="@id/etEmail"
+        android:hint="@string/password" />
+
+    <EditText
+        android:id="@+id/etRepeatPassword"
+        style="@style/EditTextTheme"
+        android:layout_below="@id/etPassword"
+        android:hint="@string/repeat_password" />
+
+    <Button
+        android:id="@+id/btSend"
+        style="@style/ButtonTheme"
+        android:layout_below="@id/etRepeatPassword"
+        android:onClick="onClick"
+        android:text="@string/send" />
+
+</RelativeLayout>
