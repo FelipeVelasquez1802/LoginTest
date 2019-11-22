@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.felipevelasquez.logintest.R;
@@ -24,6 +25,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private EditText email;
     private EditText password;
     private EditText repeatPassword;
+    private ProgressBar progressBar;
+
     private FirebaseAuth auth;
 
     @Override
@@ -42,6 +45,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         email = findViewById(R.id.etEmail);
         password = findViewById(R.id.etPassword);
         repeatPassword = findViewById(R.id.etRepeatPassword);
+        progressBar = findViewById(R.id.progress);
 
         auth = FirebaseAuth.getInstance();
     }
@@ -87,6 +91,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private void createAccount(String email, String password) {
+        progressBar.setVisibility(View.VISIBLE);
         auth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, this);
     }
@@ -105,6 +110,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private void updateActivity(FirebaseUser user) {
+        progressBar.setVisibility(View.GONE);
         if (user != null) {
             Intent intent = new Intent(this, HomeActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
