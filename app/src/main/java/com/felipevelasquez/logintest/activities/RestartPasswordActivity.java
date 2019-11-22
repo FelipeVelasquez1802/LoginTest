@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.felipevelasquez.logintest.R;
@@ -20,6 +21,7 @@ public class RestartPasswordActivity extends AppCompatActivity implements View.O
     private Validations validations;
 
     private EditText email;
+    private ProgressBar progressBar;
 
     private FirebaseAuth auth;
 
@@ -37,6 +39,7 @@ public class RestartPasswordActivity extends AppCompatActivity implements View.O
 
     private void initElements() {
         email = findViewById(R.id.etEmail);
+        progressBar = findViewById(R.id.progress);
 
         auth = FirebaseAuth.getInstance();
     }
@@ -63,11 +66,13 @@ public class RestartPasswordActivity extends AppCompatActivity implements View.O
     }
 
     private void sendPasswordReset(String email) {
+        progressBar.setVisibility(View.VISIBLE);
         auth.sendPasswordResetEmail(email).addOnCompleteListener(this, this);
     }
 
     @Override
     public void onComplete(@NonNull Task task) {
+        progressBar.setVisibility(View.GONE);
         if (task.isSuccessful()) {
 //            Intent intent = new Intent(this, MainActivity.class);
 //            startActivity(intent);

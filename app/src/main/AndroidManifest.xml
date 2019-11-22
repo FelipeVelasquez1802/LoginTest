@@ -11,9 +11,11 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".activities.RestartPasswordActivity"
+            android:label="@string/restart_password"
             android:parentActivityName=".activities.MainActivity" />
         <activity
             android:name=".activities.RegisterActivity"
+            android:label="@string/register"
             android:parentActivityName=".activities.MainActivity" />
         <activity android:name=".activities.HomeActivity" />
         <activity android:name=".activities.MainActivity">
