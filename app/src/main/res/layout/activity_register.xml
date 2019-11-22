@@ -10,19 +10,22 @@
     <EditText
         android:id="@+id/etEmail"
         style="@style/EditTextTheme"
-        android:hint="@string/email" />
+        android:hint="@string/email"
+        android:inputType="textEmailAddress" />
 
     <EditText
         android:id="@+id/etPassword"
         style="@style/EditTextTheme"
         android:layout_below="@id/etEmail"
-        android:hint="@string/password" />
+        android:hint="@string/password"
+        android:inputType="textPassword" />
 
     <EditText
         android:id="@+id/etRepeatPassword"
         style="@style/EditTextTheme"
         android:layout_below="@id/etPassword"
-        android:hint="@string/repeat_password" />
+        android:hint="@string/repeat_password"
+        android:inputType="textPassword" />
 
     <Button
         android:id="@+id/btSend"

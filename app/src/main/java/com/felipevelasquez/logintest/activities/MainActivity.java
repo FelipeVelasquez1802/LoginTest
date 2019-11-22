@@ -24,6 +24,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private EditText email;
     private EditText password;
 
+
     private FirebaseAuth auth;
 
     @Override
@@ -49,7 +50,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onStart() {
         super.onStart();
         FirebaseUser currentUser = auth.getCurrentUser();
-        updateActivity(currentUser);
+        updateActivity(currentUser, false);
     }
 
     @Override
@@ -100,22 +101,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (task.isSuccessful()) {
             Log.d("Mensaje", "Login:Success");
             FirebaseUser user = auth.getCurrentUser();
-            updateActivity(user);
+            updateActivity(user, true);
         } else {
             Log.e("Mensaje", "Login:Failure");
             Toast.makeText(this, "Login:Failure", Toast.LENGTH_SHORT).show();
-            updateActivity(null);
+            updateActivity(null, true);
         }
     }
 
-    private void updateActivity(FirebaseUser user) {
+    private void updateActivity(FirebaseUser user, boolean flag) {
         if (user != null) {
             Intent intent = new Intent(this, HomeActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
         } else {
-            Toast.makeText(this, "Email or password incorrect", Toast.LENGTH_SHORT).show();
+            if (flag) {
+                Toast.makeText(this, "Email or password incorrect", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 }

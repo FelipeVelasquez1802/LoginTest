@@ -11,12 +11,15 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.felipevelasquez.logintest.R;
+import com.felipevelasquez.logintest.tools.Validations;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener, OnCompleteListener {
+
+    private Validations validations;
 
     private EditText email;
     private EditText password;
@@ -27,7 +30,12 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+        initObjects();
         initElements();
+    }
+
+    private void initObjects() {
+        validations = new Validations();
     }
 
     private void initElements() {
@@ -44,7 +52,35 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         switch (v.getId()) {
             case R.id.btSend:
                 String emailString = email.getText().toString();
+                if (emailString.isEmpty()) {
+                    email.setError(getString(R.string.not_empty));
+                    return;
+                } else {
+                    if (!validations.isEmail(emailString)) {
+                        email.setError(getString(R.string.email_error));
+                        return;
+                    } else {
+                        email.setError(null);
+                    }
+                }
                 String passwordString = password.getText().toString();
+                if (passwordString.isEmpty()) {
+                    password.setError(getString(R.string.not_empty));
+                    return;
+                } else {
+                    password.setError(null);
+                }
+                String repeatPasswordString = repeatPassword.getText().toString();
+                if (repeatPasswordString.isEmpty()) {
+                    password.setError(getString(R.string.not_empty));
+                    return;
+                } else {
+                    password.setError(null);
+                }
+                if (!passwordString.equalsIgnoreCase(repeatPasswordString)) {
+                    Toast.makeText(this, getString(R.string.password_do_not_match), Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 createAccount(emailString, passwordString);
                 break;
         }

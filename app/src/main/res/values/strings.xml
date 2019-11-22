@@ -11,4 +11,5 @@
     <string name="restart_password">Restart password</string>
     <string name="email_error">Email invalid</string>
     <string name="not_empty">Not empty</string>
+    <string name="password_do_not_match">Passwords do not match</string>
 </resources>
